@@ -5,5 +5,5 @@ args:
   # Example: set extra args for your Dockerfile if needed
   SOME_ARG: "value"
 labels:
-  org.opencontainers.image.title: "Custom App Add-on"
-  org.opencontainers.image.source: "https://github.com/sergiobaiao/ha-addon-custom-app"
+  org.opencontainers.image.title: "Frigate Monitor Addon"
+  org.opencontainers.image.source: "https://github.com/sergiobaiao/frigate_monitor"
