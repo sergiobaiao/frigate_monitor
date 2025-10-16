@@ -1,0 +1,39 @@
+name: Frigate Monitor
+version: "0.1.0"
+slug: custom-app
+description: Frigate Monitor Addon
+url: https://github.com/sergiobaiao/frigate_monitor/tree/main/addons/frigate_monitor
+arch:
+  - aarch64
+  - amd64
+init: false
+startup: services
+ingress: false
+# Using host networking to simplify running arbitrary apps across many hosts
+host_network: true
+# Drop privileges to what's strictly necessary; adjust/remove as needed
+privileged:
+  - NET_ADMIN
+# Common host mounts available to apps
+map:
+  - config:rw
+  - share:rw
+  - ssl:rw
+  - media:rw
+# If you prefer explicit port mappings, uncomment and declare container ports:
+# ports:
+#   "8085/tcp": null  # null allows user-defined host port in UI
+# ports_description:
+#   "8085/tcp": "App Web UI"
+# Optional: run as a fixed user instead of root
+# user: "0"
+options:
+  COMMAND: "sleep infinity"
+  ENV_VARS: []
+  WORKDIR: null
+schema:
+  COMMAND: str
+  ENV_VARS:
+    - str?
+  WORKDIR: str?
+image: "ghcr.io/sergiobaiao/frigate_monitor-{arch}:0.1.0"

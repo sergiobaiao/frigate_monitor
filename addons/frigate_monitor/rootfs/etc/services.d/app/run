@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+OPTIONS_FILE="/data/options.json"
+CMD=""
+WORKDIR=""
+declare -a ENVS=()
+
+if [[ -f "${OPTIONS_FILE}" ]]; then
+  CMD=$(jq -r '.COMMAND // empty' "${OPTIONS_FILE}")
+  WORKDIR=$(jq -r '.WORKDIR // empty' "${OPTIONS_FILE}")
+  # Read ENV_VARS as an array of KEY=VALUE strings
+  mapfile -t ENVS < <(jq -r '.ENV_VARS // [] | .[]' "${OPTIONS_FILE}")
+fi
+
+# Export env vars
+for kv in "${ENVS[@]}"; do
+  if [[ -n "${kv}" ]]; then
+    export "${kv?}"
+  fi
+done
+
+if [[ -n "${WORKDIR}" && -d "${WORKDIR}" ]]; then
+  cd "${WORKDIR}"
+fi
+
+if [[ -z "${CMD}" ]]; then
+  echo "[custom-app] ERROR: COMMAND is empty. Set it in the add-on configuration."
+  sleep 2
+  exit 1
+fi
+
+echo "[custom-app] Executing: ${CMD}"
+exec /bin/sh -lc "${CMD}"

@@ -1,0 +1,9 @@
+build_from:
+  aarch64: ghcr.io/home-assistant/aarch64-base:3.19
+  amd64: ghcr.io/home-assistant/amd64-base:3.19
+args:
+  # Example: set extra args for your Dockerfile if needed
+  SOME_ARG: "value"
+labels:
+  org.opencontainers.image.title: "Custom App Add-on"
+  org.opencontainers.image.source: "https://github.com/sergiobaiao/ha-addon-custom-app"
