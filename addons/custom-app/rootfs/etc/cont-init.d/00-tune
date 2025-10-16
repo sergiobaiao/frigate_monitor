@@ -1,4 +1,0 @@
-#!/usr/bin/with-contenv bash
-set -euo pipefail
-# Place any initialization you need here (permissions, generated files, etc.)
-echo "[custom-app] cont-init: nothing to do"
